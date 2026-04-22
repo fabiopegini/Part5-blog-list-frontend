@@ -1,0 +1,33 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.33rem;
+}
+
+form > button {
+  width: 5rem;
+}
+
+.successMsg {
+  font-size: 20px;
+  background-color: lightgray;
+  color: green;
+  border: 1px solid green;
+  padding: 4px;
+  margin: 8px;
+}
+
+.errorMsg {
+  font-size: 20px;
+  background-color: lightgray;
+  color: red;
+  border: 1px solid red;
+  padding: 4px;
+  margin: 8px;
+}
