@@ -15,6 +15,19 @@ const App = () => {
     )  
   }, [])
 
+  useEffect(() => {
+    const userFromLocalStorage = window.localStorage.getItem('loggedUser')
+    if(userFromLocalStorage) {
+      const loggedUser = JSON.parse(userFromLocalStorage)
+      setUser(loggedUser)
+      }
+  }, [])
+
+  const logout = () => {
+    window.localStorage.removeItem('loggedUser')
+    setUser(null)
+  }
+
   return (
   <>
     {!user && <LoginForm  setUser={setUser} setErrorMessage={setErrorMessage}/>}
@@ -22,7 +35,10 @@ const App = () => {
 
     {user && <div>
       <h1>Blogs</h1>
-      <h3>{`${user.name} logged in`}</h3>
+      <div className='user_info'>
+        <div>{`${user.name} logged in`}</div>
+        <button type='button' onClick={logout}>Logout</button>
+      </div>
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
