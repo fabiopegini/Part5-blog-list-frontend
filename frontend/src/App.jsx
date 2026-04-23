@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import LoginForm from './components/LoginForm'
 import ShowMsg from './components/ShowMsg'
+import CreateForm from './components/CreateForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -11,8 +12,8 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
-      setBlogs( blogs )
-    )  
+      setBlogs(blogs)
+    ) 
   }, [])
 
   useEffect(() => {
@@ -20,6 +21,7 @@ const App = () => {
     if(userFromLocalStorage) {
       const loggedUser = JSON.parse(userFromLocalStorage)
       setUser(loggedUser)
+      blogService.setToken(loggedUser.token)
       }
   }, [])
 
@@ -39,6 +41,8 @@ const App = () => {
         <div>{`${user.name} logged in`}</div>
         <button type='button' onClick={logout}>Logout</button>
       </div>
+      <CreateForm setErrorMessage={setErrorMessage} setBlogs={setBlogs} />
+      {errorMessage && <ShowMsg msg={errorMessage} type={'error'} />}
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />
       )}
