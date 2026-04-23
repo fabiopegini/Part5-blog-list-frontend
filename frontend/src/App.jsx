@@ -9,6 +9,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -32,8 +33,8 @@ const App = () => {
 
   return (
   <>
-    {!user && <LoginForm  setUser={setUser} setErrorMessage={setErrorMessage}/>}
-    {!user && errorMessage && <ShowMsg msg={errorMessage} type={'error'}/>}
+    {!user && <LoginForm  setUser={setUser} setErrorMessage={setErrorMessage} setSuccessMessage={setSuccessMessage} />}
+    {!user && errorMessage && <ShowMsg msg={errorMessage} type={'error'} />}
 
     {user && <div>
       <h1>Blogs</h1>
@@ -41,7 +42,8 @@ const App = () => {
         <div>{`${user.name} logged in`}</div>
         <button type='button' onClick={logout}>Logout</button>
       </div>
-      <CreateForm setErrorMessage={setErrorMessage} setBlogs={setBlogs} />
+      {successMessage && <ShowMsg msg={successMessage} type={'success'} />}
+      <CreateForm setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} setBlogs={setBlogs} />
       {errorMessage && <ShowMsg msg={errorMessage} type={'error'} />}
       {blogs.map(blog =>
         <Blog key={blog.id} blog={blog} />

@@ -2,7 +2,7 @@ import { useState } from "react"
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
-const LoginForm = ({ setUser, setErrorMessage }) => {
+const LoginForm = ({ setUser, setErrorMessage, setSuccessMessage }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -12,6 +12,8 @@ const LoginForm = ({ setUser, setErrorMessage }) => {
     try {
       const user = await loginService.login({ username, password })
 
+      setSuccessMessage('Successfully logged in!')
+      setTimeout(() => setSuccessMessage(''), 3000)
       window.localStorage.setItem('loggedUser', JSON.stringify(user))
       blogService.setToken(user.token)
       setUser(user)
