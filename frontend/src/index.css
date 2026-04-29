@@ -5,6 +5,11 @@ form {
   margin-bottom: 1.5rem;
 }
 
+form > h2 {
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
 label {
   display: flex;
   align-items: center;
@@ -12,6 +17,11 @@ label {
 }
 
 form > button {
+  width: 5rem;
+}
+
+.button {
+  margin-bottom: 1rem;
   width: 5rem;
 }
 

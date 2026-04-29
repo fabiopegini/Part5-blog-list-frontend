@@ -5,6 +5,7 @@ const CreateForm = ({ setSuccessMessage, setErrorMessage, setBlogs }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [isHidden, setIsHidden] = useState(false)
 
   const handleCreate = async (event) => {
     event.preventDefault()
@@ -27,7 +28,9 @@ const CreateForm = ({ setSuccessMessage, setErrorMessage, setBlogs }) => {
   }
 
   return (
-    <form onSubmit={handleCreate}>
+    isHidden 
+    ? <button type="button" className="button" onClick={() => setIsHidden(false)}>Show Blog Form</button>
+    : <form onSubmit={handleCreate}>
       <h2>Create New Blog</h2>
       <label>
         Title: 
@@ -42,6 +45,7 @@ const CreateForm = ({ setSuccessMessage, setErrorMessage, setBlogs }) => {
         <input type="text" value={url} onChange={e => setUrl(e.target.value)}/>
       </label>
       <button type='submit'>Create</button>
+      <button type="button" onClick={() => setIsHidden(true)}>Hide Blog Form</button>
     </form>
   )
 }
