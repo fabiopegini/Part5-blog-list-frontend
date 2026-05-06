@@ -54,8 +54,16 @@ form > button {
 
 .blog {
   margin-bottom: 0.3rem;
-  padding: 0.3rem;
+  padding: 0.1rem 0.3rem;
   border: 1px solid gray;
+}
+
+.blog > div {
+  margin: 0.3rem 0;
+}
+
+.blog > div > div {
+  margin: 0.3rem 0;
 }
 
 .blog > div > button {

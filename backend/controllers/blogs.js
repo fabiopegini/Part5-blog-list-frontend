@@ -5,7 +5,7 @@ const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response, next) => {
   try {
-    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
+    const blogs = await Blog.find({}).populate('user', { username: 1, name: 1, id: 1 })
     return response.json(blogs)
 
   } catch(error) {
@@ -17,7 +17,7 @@ blogsRouter.get('/:id', async (request, response, next) => {
   const { id } = request.params
 
   try {
-    const blog = await Blog.findById(id).populate('user', { username: 1, name: 1 })
+    const blog = await Blog.findById(id).populate('user', { username: 1, name: 1, id: 1 })
     return response.status(200).json(blog)
 
   } catch(error) {
@@ -46,9 +46,20 @@ blogsRouter.post('/', middleware.userExtractor, async (request, response, next) 
 
     const savedBlog = await newBlog.save()
 
-    await User.findByIdAndUpdate(user.id, { blogs: [savedBlog._id, ...user.blogs] })
+    const { username, name, user_id } = await User.findByIdAndUpdate(user.id, { blogs: [savedBlog._id, ...user.blogs] })
 
-    return response.status(201).json(savedBlog)
+    const { title, author, url, likes, id } = savedBlog
+    
+    const returnedBlog = {
+      title,
+      author,
+      url,
+      likes,
+      id,
+      user: { username, name, user_id }
+    }
+
+    return response.status(201).json(returnedBlog)
     
   } catch(error) {
     next(error)
@@ -82,9 +93,21 @@ blogsRouter.put('/:id', async (request, response, next) => {
 
   if(isEmpty(body)) return response.status(400).send({ error: 'You did not provide any updates for the resource' })
 
+  const { likes, title, author, url, user } = body
+
+  const blogToUpdate = {
+    likes,
+    title,
+    author,
+    url,
+    id,
+    user: user.id
+  }
+
   try {
-    const result = await Blog.findByIdAndUpdate(id, body, { returnDocument: 'after' })
-    return response.status(200).json({ success: `The blog: ${result.title}, was successfully modified`, result })
+    await Blog.findByIdAndUpdate(id, blogToUpdate, { returnDocument: 'after' })
+
+    return response.status(200).json({ ...blogToUpdate, user })
 
   } catch(error) {
     next(error)

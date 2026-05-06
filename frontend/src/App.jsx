@@ -43,10 +43,10 @@ const App = () => {
         <button type='button' onClick={logout}>Logout</button>
       </div>
       {successMessage && <ShowMsg msg={successMessage} type={'success'} />}
-      <CreateForm setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} setBlogs={setBlogs} />
+      <CreateForm setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} blogs={blogs} setBlogs={setBlogs} />
       {errorMessage && <ShowMsg msg={errorMessage} type={'error'} />}
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} />
       )}
     </div>}
   </>
