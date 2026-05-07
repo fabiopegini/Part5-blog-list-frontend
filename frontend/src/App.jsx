@@ -48,7 +48,7 @@ const App = () => {
       <CreateForm setSuccessMessage={setSuccessMessage} setErrorMessage={setErrorMessage} blogs={sortedBlogs} setBlogs={setBlogs} />
       {errorMessage && <ShowMsg msg={errorMessage} type={'error'} />}
       {sortedBlogs.map(blog =>
-        <Blog key={blog.id} blog={blog} blogs={sortedBlogs} setBlogs={setBlogs} />
+        <Blog key={blog.id} blog={blog} blogs={sortedBlogs} setBlogs={setBlogs} user={user}/>
       )}
     </div>}
   </>
