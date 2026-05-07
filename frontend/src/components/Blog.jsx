@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 import blogService from '../services/blogs'
 
 const Blog = ({ blog, blogs, setBlogs, user }) => {
@@ -23,7 +23,7 @@ const Blog = ({ blog, blogs, setBlogs, user }) => {
   return (
     <div className="blog">
       <div>
-        {blog.title} - {blog.author} 
+        {blog.title} - {blog.author}
         <button type="button" onClick={() => setIsExtended(!isExtended)}>{isExtended ? 'Hide' : 'View'}</button>
       </div>
       {isExtended && <>

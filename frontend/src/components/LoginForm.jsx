@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from 'react'
 import loginService from '../services/login'
 import blogService from '../services/blogs'
 
@@ -28,9 +28,9 @@ const LoginForm = ({ setUser, setErrorMessage, setSuccessMessage }) => {
 
   return <form onSubmit={handleLogin}>
     <label htmlFor="username">Username:
-     <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="text" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
     </label>
-    <label htmlFor="password">Password: 
+    <label htmlFor="password">Password:
       <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
     </label>
     <button type="submit">Login</button>
